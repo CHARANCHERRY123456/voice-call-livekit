@@ -7,6 +7,7 @@ function App() {
     const [identity , setIdentity] = useState('');
     const [lkroom , setLkroom] = useState(null);
     const [participants , setParticipants] = useState([]);
+    const [messages , setMessages] = useState([]);
     
     async function handleSubmit(e) {
       e.preventDefault();
@@ -35,6 +36,13 @@ function App() {
         setParticipants(prev => prev.filter(p => p !== participant));
       });
 
+      lkroom.on(RoomEvent.DataReceived, (payload, participant) => {
+        const message = JSON.parse(new TextDecoder().decode(payload));
+        console.log('Data received:', message);
+        setMessages(prev => [...prev, message]);
+      });
+
+
       lkroom.on(RoomEvent.TrackSubscribed, (track, publication, participant) => {
         console.log('Track subscribed:', track, publication, participant);
         if(track.kind === 'audio') {
@@ -56,6 +64,14 @@ function App() {
       <button onClick={handleSubmit} >
         Join Room
       </button>
+
+      <div>
+        {messages.map((message, index) => (
+          <div key={index}>
+            <strong>{message.role}:</strong> {message.text}
+          </div>
+        ))}
+      </div>
 
       <div>
         {participants.map((participant) => (

@@ -59,7 +59,7 @@ async def entrypoint(ctx: JobContext):
                 {
                     "type" : "conversation_item_added",
                     "role" : event.item.role,
-                    "text" : event.item.text
+                    "text" : event.item.content[0]
                 }
             )
         )
