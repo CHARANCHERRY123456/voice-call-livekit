@@ -1,0 +1,44 @@
+.call-room {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 20px;
+  width: min(560px, 100%);
+  height: min(760px, 92svh);
+  animation: rise-in 0.5s var(--ease-out);
+}
+
+.call-room__stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 28px 20px 8px;
+}
+
+.call-room__stage-spacer {
+  height: 4px;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .call-room {
+    width: 100%;
+    height: 100svh;
+    gap: 14px;
+  }
+
+  .call-room__stage {
+    padding: 16px 12px 4px;
+  }
+}
